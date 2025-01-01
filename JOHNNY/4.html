@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sortify - Sorting Algorithm</title>
+    <link rel="icon" type="image/jpg" href="sortify_white.jpg">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: white;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: 20px auto;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            color: white;
+        }
+
+        th {
+            background-color: #34c759;
+        }
+
+        button {
+            margin: 10px;
+            margin-left: 50px;
+            padding: 10px;
+            cursor: pointer;
+            color: white;
+            background-color: #34c759;
+        }
+        button:hover {
+            background-color: rgb(46, 166, 76);
+        }
+        h1{
+            text-align: center;
+            color: #34c759;
+        }
+        img{
+            width: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1> <img src="sortify_black.jpg"> SORTIFY</h1>
+    <button id="name-asc">Sort by Name (ASC)</button>
+    <button id="name-desc">Sort by Name (DESC)</button>
+    <button id="artist-asc">Sort by Artist (ASC)</button>
+    <button id="artist-desc">Sort by Artist (DESC)</button>
+    <button id="year-asc">Sort by Year (ASC)</button>
+    <button id="year-desc">Sort by Year (DESC)</button>
+    <table id="song-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Artist</th>
+                <th>Year</th>
+            </tr>
+        </thead>
+        <tbody id="song-body">
+            <!-- Songs will be listed here -->
+        </tbody>
+    </table>
+
+    <script>
+                
+        const songs = [
+            { name: "Happy", artist: "Pharrell Williams", year: 2013 },
+            { name: "Uptown Funk", artist: "Mark Ronson ft. Bruno Mars", year: 2014 },
+            { name: "Can't Stop the Feeling!", artist: "Justin Timberlake", year: 2016 },
+            { name: "We Found Love", artist: "Rihanna ft. Calvin Harris", year: 2011 },
+            { name: "Someone Like You", artist: "Adele", year: 2011 },
+            { name: "Shut Up and Dance", artist: "Walk the Moon", year: 2014 },
+            { name: "All About That Bass", artist: "Meghan Trainor", year: 2014 },
+            { name: "Roar", artist: "Katy Perry", year: 2013 },
+            { name: "Counting Stars", artist: "OneRepublic", year: 2013 },
+            { name: "Stay with Me", artist: "Sam Smith", year: 2014 },
+            { name: "Chandelier", artist: "Sia", year: 2014 },
+            { name: "Style", artist: "Taylor Swift", year: 2014 },
+            { name: "Wildest Dreams", artist: "Taylor Swift", year: 2014 },
+            { name: "The Hills", artist: "The Weeknd", year: 2015 },
+            { name: "Earned It", artist: "The Weeknd", year: 2015 },
+            { name: "Love Yourself", artist: "Justin Bieber", year: 2015 },
+            { name: "Sorry", artist: "Justin Bieber", year: 2015 },
+            { name: "Sugar", artist: "Maroon 5", year: 2015 },
+            { name: "Try Everything", artist: "Shakira", year: 2016 },
+            { name: "Treat You Better", artist: "Shawn Mendes", year: 2016 },
+            { name: "Cold Water", artist: "Major Lazer ft. Justin Bieber & MØ", year: 2016 },
+            { name: "Don't Let Me Down", artist: "The Chainsmokers ft. Daya", year: 2016 },
+            { name: "Closer", artist: "The Chainsmokers ft. Halsey", year: 2016 },
+            { name: "Cheap Thrills", artist: "Sia ft. Sean Paul", year: 2016 },
+            { name: "Work", artist: "Rihanna ft. Drake", year: 2016 },
+            { name: "Pillowtalk", artist: "ZAYN", year: 2016 },
+    { name: "One Dance", artist: "Drake ft. WizKid & Kyla", year: 2016 },
+    { name: "Work from Home", artist: "Fifth Harmony ft. Ty Dolla Sign", year: 2016 },
+    { name: "My House", artist: "Flo Rida", year: 2016 },
+    { name: "Antidote", artist: "Travis Scott", year: 2015 },
+    { name: "For Free", artist: "DJ Khaled ft. Drake", year: 2016 },
+    { name: "Broccoli", artist: "DRAM ft. Lil Yachty", year: 2016 },
+    { name: "Juju on That Beat (TZ Anthem)", artist: "Zay Hilfiger", year: 2016 },
+    { name: "Black Beatles", artist: "Rae Sremmurd ft. Gucci Mane", year: 2016 },
+    { name: "Side to Side", artist: "Ariana Grande ft. Nicki Minaj", year: 2016 },
+    { name: "24K Magic", artist: "Bruno Mars", year: 2016 },
+    { name: "Starving", artist: "Hailee Steinfeld & Grey ft. Zedd", year: 2016 },
+    { name: "Trollz", artist: "DJ Douggpound", year: 2016 }
+];
+
+    // Function to render songs
+    function renderSongs(songs) {
+        const songBody = document.getElementById('song-body');
+        songBody.innerHTML = '';
+        songs.forEach(song => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${song.name}</td>
+                <td>${song.artist}</td>
+                <td>${song.year}</td>
+            `;
+            songBody.appendChild(row);
+        });
+    }
+
+    // Render songs initially
+    renderSongs(songs);
+
+    // Add event listeners for sorting buttons
+    document.getElementById('name-asc').addEventListener('click', () => {
+        songs.sort((a, b) => a.name.localeCompare(b.name));
+        renderSongs(songs);
+    });
+
+    document.getElementById('name-desc').addEventListener('click', () => {
+        songs.sort((a, b) => b.name.localeCompare(a.name));
+        renderSongs(songs);
+    });
+
+    document.getElementById('artist-asc').addEventListener('click', () => {
+        songs.sort((a, b) => a.artist.localeCompare(b.artist));
+        renderSongs(songs);
+    });
+
+    document.getElementById('artist-desc').addEventListener('click', () => {
+        songs.sort((a, b) => b.artist.localeCompare(a.artist));
+        renderSongs(songs);
+    });
+
+    document.getElementById('year-asc').addEventListener('click', () => {
+        songs.sort((a, b) => a.year - b.year);
+        renderSongs(songs);
+    });
+
+    document.getElementById('year-desc').addEventListener('click', () => {
+        songs.sort((a, b) => b.year - a.year);
+        renderSongs(songs);
+    });
+    </script>
+</body>
+</html>

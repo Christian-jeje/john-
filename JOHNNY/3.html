@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Algorithm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #input-data {
+            padding: 10px;
+            width: 50%;
+            font-size: 18px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 10px;
+        }
+
+        #order-select {
+            padding: 10px;
+            font-size: 18px;
+        }
+
+        #result {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sorting Algorithm</h1>
+    <input id="input-data" type="text" placeholder="Enter names separated by commas">
+    <button id="sort-btn">Sort</button>
+    <select id="order-select">
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+    </select>
+    <div id="result"></div>
+
+    <script>
+        const inputData = document.getElementById('input-data');
+        const sortBtn = document.getElementById('sort-btn');
+        const orderSelect = document.getElementById('order-select');
+        const resultDiv = document.getElementById('result');
+
+        sortBtn.addEventListener('click', () => {
+            const data = inputData.value.split(',');
+            const order = orderSelect.value;
+
+            if (order === 'asc') {
+                data.sort();
+                resultDiv.innerText = `Ascending Order: ${data.join(', ')}`;
+            } else if (order === 'desc') {
+                data.sort().reverse();
+                resultDiv.innerText = `Descending Order: ${data.join(', ')}`;
+            }
+        });
+    </script>
+</body>
+</html>
